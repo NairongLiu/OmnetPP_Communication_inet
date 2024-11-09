@@ -257,6 +257,7 @@ void MobilityBase::handleMessage(cMessage *message)
 
         if (hasPar("readPositionFile") && par("readPositionFile")) {
             int mobilityNodeId = par("mobilityNodeId");
+            //std::cout << "mobilityNodeId: " << mobilityNodeId << std::endl;
             auto* position = DataStorage::getPositionById(mobilityNodeId);
 
             if (position) {

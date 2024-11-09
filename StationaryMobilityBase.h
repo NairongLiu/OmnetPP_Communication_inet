@@ -14,10 +14,15 @@ namespace inet {
 
 class INET_API StationaryMobilityBase : public MobilityBase
 {
-  protected:
-    virtual void handleSelfMessage(cMessage *message) override { throw cRuntimeError("Invalid operation"); }
+    protected:
+    cMessage *selfTimer = nullptr;
+
+    virtual void initialize(int stage) override;
+    virtual void handleSelfMessage(cMessage *message) override;
+
 
   public:
+    virtual ~StationaryMobilityBase();
     virtual const Quaternion& getCurrentAngularPosition() override { return lastOrientation; }
     virtual const Quaternion& getCurrentAngularVelocity() override { return Quaternion::IDENTITY; }
     virtual const Quaternion& getCurrentAngularAcceleration() override { return Quaternion::IDENTITY; }
