@@ -246,13 +246,27 @@ void MobilityBase::handleMessage(cMessage *message)
     if (message->isSelfMessage())
     {
         handleSelfMessage(message);
+        //if (hasPar("readPositionFile") && par("readPositionFile")) {
+        //    int mobilityNodeId = par("mobilityNodeId");
+        //    std::cout << "Node id for Mobility: " << mobilityNodeId << std::endl;
+        //    int key = mobilityNodeId;
+            // Get the filename from the parameter, default to "test.txt" if not specified
+        //    const char *filename = par("positionFileName");
+        //    readPositionFromFile(filename ? filename : "test.txt", key);
+        //}
+
         if (hasPar("readPositionFile") && par("readPositionFile")) {
             int mobilityNodeId = par("mobilityNodeId");
-            std::cout << "Node id for Mobility: " << mobilityNodeId << std::endl;
-            int key = mobilityNodeId;
-            // Get the filename from the parameter, default to "test.txt" if not specified
-            const char *filename = par("positionFileName");
-            readPositionFromFile(filename ? filename : "test.txt", key);
+            auto* position = DataStorage::getPositionById(mobilityNodeId);
+
+            if (position) {
+                auto [x, y, z] = *position;
+                std::cout << "Position for id " << mobilityNodeId << ": (" << x << ", " << y << ", " << z << ")\n";
+                Coord newPosition(x, y, z);
+               handlePositionUpdate(newPosition);
+            } else {
+                std::cout << "No position found for id " << mobilityNodeId << "\n";
+            }
         }
     }
     else

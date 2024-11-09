@@ -14,6 +14,7 @@
 #include "inet/common/geometry/common/Coord.h"
 #include "inet/common/geometry/common/Quaternion.h"
 #include "inet/mobility/contract/IMobility.h"
+#include "inet/mobility/base/Unity/DataStorage.h"
 
 namespace inet {
 
